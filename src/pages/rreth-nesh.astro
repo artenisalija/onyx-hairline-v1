@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import IconArrow from '../components/IconArrow.astro';
+import { withBase } from '../utils/paths';
+---
+
+<BaseLayout title="Rreth Nesh" description="Njihuni me historinë, filozofinë dhe vlerat e Onyx Hairline — një markë e pavarur e dedikuar bukurisë dhe shëndetit të flokëve.">
+  <section class="about-hero">
+    <div class="about-hero-media">
+      <!-- TODO: zëvendëso fotografinë e përkohshme me portretin e ekipit të Onyx Hairline -->
+      <img src="https://images.unsplash.com/photo-1556760544-74068565f05c?auto=format&fit=crop&fm=webp&w=2000&q=84" alt="Ambient elegant dhe profesional i kujdesit për flokët" fetchpriority="high" decoding="async" />
+    </div>
+    <div class="about-shade"></div>
+    <div class="container about-title" data-reveal>
+      <p class="eyebrow">Rreth Onyx Hairline</p>
+      <h1 class="display-xl">Të udhëhequr<br />nga <em>detaji.</em></h1>
+    </div>
+  </section>
+
+  <section class="story section section--ivory">
+    <div class="container story-grid">
+      <div data-reveal>
+        <p class="eyebrow">Historia jonë</p>
+        <h2 class="display-md">Një hapësirë ku flokët trajtohen si identitet.</h2>
+      </div>
+      <div class="story-copy" data-reveal>
+        <p class="large">Onyx Hairline lindi nga një bindje e thjeshtë: luksi i vërtetë është një rezultat që ndihet personal.</p>
+        <p>Jemi një markë e pavarur, e fokusuar vetëm te zgjatimet me flokë njerëzorë, ngjyrosja e personalizuar dhe trajtimet profesionale. Për ne, çdo takim është një bashkëpunim mes dëshirës suaj dhe ekspertizës sonë.</p>
+        <p>Punojmë me qetësi, saktësi dhe respekt për shëndetin e flokut. Nuk ndjekim një formulë të vetme; studiojmë strukturën, tiparet dhe rutinën tuaj, për të krijuar një pamje që ju përket.</p>
+        <p class="placeholder-note">Përmbajtje e përkohshme — historia përfundimtare e markës do të vendoset këtu.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="manifesto section">
+    <div class="container manifesto-grid">
+      <div class="manifesto-image image-wrap" data-reveal>
+        <img src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&fm=webp&w=1200&q=84" alt="Puna e kujdesshme e një profesionisteje të flokëve" loading="lazy" decoding="async" />
+        <span>Fotografi e përkohshme</span>
+      </div>
+      <div class="manifesto-copy" data-reveal>
+        <p class="eyebrow">Filozofia</p>
+        <h2 class="display-md">E sofistikuar.<br />Asnjëherë <em>e sforcuar.</em></h2>
+        <p>Synojmë bukuri me lëvizje, thellësi dhe jetë — jo një rezultat të ngrirë. Teknikat tona përdoren për të nxjerrë në pah atë që ju bën të veçantë.</p>
+        <blockquote>“Floku më i bukur është ai që duket sikur ka qenë gjithmonë i juaji.”</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="values section section--ivory">
+    <div class="container values-head" data-reveal>
+      <p class="eyebrow">Vlerat tona</p>
+      <h2 class="display-md">Ajo që na udhëheq.</h2>
+    </div>
+    <div class="container value-grid">
+      <article data-reveal><span>01</span><h3>Cilësia</h3><p>Zgjedhim materiale, produkte dhe teknika me standard të lartë, pa rrugë të shkurtra.</p></article>
+      <article data-reveal><span>02</span><h3>Sinqeriteti</h3><p>Japim këshillë reale për atë që i bën mirë flokut tuaj, edhe kur përgjigjja kërkon durim.</p></article>
+      <article data-reveal><span>03</span><h3>Personalizimi</h3><p>Asnjë formulë nuk kopjohet. Çdo ngjyrë, gjatësi dhe trajtim ndërtohet për ju.</p></article>
+      <article data-reveal><span>04</span><h3>Kujdesi</h3><p>Përvoja, rehatia dhe shëndeti i flokut tuaj janë pjesë e çdo vendimi që marrim.</p></article>
+    </div>
+  </section>
+
+  <section class="team section">
+    <div class="container team-grid">
+      <div data-reveal>
+        <p class="eyebrow">Ekipi</p>
+        <h2 class="display-md">Duart dhe syri pas çdo rezultati.</h2>
+        <p class="lead">Ky seksion është përmbajtje e përkohshme. Portretet dhe profilet e ekipit të Onyx Hairline do të shtohen para publikimit përfundimtar.</p>
+        <a class="button button--ghost" href={withBase('/kontakt/')}>Flisni me ne <IconArrow /></a>
+      </div>
+      <div class="team-image image-wrap" data-reveal>
+        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&fm=webp&w=1200&q=84" alt="Ekip profesionist në një sallon modern" loading="lazy" decoding="async" />
+        <div><strong>Ekipi Onyx</strong><span>Profil i përkohshëm</span></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-hero { position: relative; min-height: 100svh; display: flex; align-items: end; overflow: hidden; }
+  .about-hero-media, .about-shade { position: absolute; inset: 0; }
+  .about-hero-media img { width: 100%; height: 100%; object-fit: cover; }
+  .about-shade { background: linear-gradient(90deg,rgba(7,7,6,.75),rgba(7,7,6,.18)),linear-gradient(0deg,rgba(7,7,6,.8),transparent 55%); }
+  .about-title { position: relative; z-index: 1; padding-bottom: clamp(5rem,10vw,8rem); }
+  .story-grid { display: grid; grid-template-columns: .9fr 1fr; gap: clamp(3rem,9vw,10rem); }
+  .story-copy p { color: #5b554e; }
+  .story-copy .large { margin-top: 0; color: var(--onyx); font-family: var(--display); font-size: clamp(1.7rem,3vw,2.4rem); line-height: 1.2; }
+  .placeholder-note { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid rgba(10,10,9,.18); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; }
+  .manifesto-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(3rem,8vw,9rem); }
+  .manifesto-image { aspect-ratio: 4/5; }
+  .manifesto-image img { width: 100%; height: 100%; object-fit: cover; }
+  .manifesto-image > span { position: absolute; z-index: 2; bottom: 1rem; left: 1rem; font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; }
+  .manifesto-copy > p:not(.eyebrow) { margin: 2rem 0; color: var(--ivory-muted); }
+  .manifesto-copy blockquote { margin: 3rem 0 0; padding: 2rem 0 0; border-top: 1px solid var(--line); color: var(--ivory); font-family: var(--display); font-size: clamp(1.6rem,3vw,2.4rem); font-style: italic; line-height: 1.2; }
+  .values-head { display: flex; align-items: end; justify-content: space-between; margin-bottom: 3rem; }
+  .value-grid { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid rgba(10,10,9,.18); }
+  .value-grid article { padding: 2rem 1.5rem; border-right: 1px solid rgba(10,10,9,.18); }
+  .value-grid article:first-child { border-left: 1px solid rgba(10,10,9,.18); }
+  .value-grid span { color: #8f5a37; font-size: .62rem; letter-spacing: .13em; }
+  .value-grid h3 { margin: 4rem 0 1rem; font-family: var(--display); font-size: 2rem; font-weight: 400; }
+  .value-grid p { margin: 0; color: #625c55; font-size: .82rem; }
+  .team-grid { display: grid; grid-template-columns: .8fr 1fr; align-items: center; gap: clamp(3rem,9vw,10rem); }
+  .team-grid .button { margin-top: 2rem; }
+  .team-image { aspect-ratio: 5/4; }
+  .team-image img { width: 100%; height: 100%; object-fit: cover; }
+  .team-image > div { position: absolute; z-index: 2; right: 1.25rem; bottom: 1.25rem; left: 1.25rem; display: flex; justify-content: space-between; align-items: end; }
+  .team-image strong { font-family: var(--display); font-size: 1.8rem; font-weight: 400; }
+  .team-image span { font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; }
+  @media (max-width: 850px) {
+    .story-grid, .manifesto-grid, .team-grid { grid-template-columns: 1fr; }
+    .value-grid { grid-template-columns: 1fr 1fr; }
+    .value-grid article:nth-child(3) { border-left: 1px solid rgba(10,10,9,.18); }
+  }
+  @media (max-width: 550px) {
+    .value-grid { grid-template-columns: 1fr; }
+    .value-grid article, .value-grid article:nth-child(3) { border-left: 1px solid rgba(10,10,9,.18); }
+    .value-grid h3 { margin-top: 2.5rem; }
+  }
+</style>

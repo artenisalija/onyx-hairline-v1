@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import IconArrow from '../../components/IconArrow.astro';
+import { services } from '../../data/services';
+import { withBase } from '../../utils/paths';
+---
+
+<BaseLayout title="Shërbimet" description="Zbuloni zgjatimet me flokë njerëzorë, ngjyrosjen e personalizuar dhe trajtimet profesionale të Onyx Hairline.">
+  <section class="page-hero">
+    <div class="container page-hero-inner">
+      <div data-reveal>
+        <p class="eyebrow">Ekspertiza jonë</p>
+        <h1 class="display-xl">Shërbime që<br /><em>transformojnë.</em></h1>
+      </div>
+      <p data-reveal>Tri shtylla, një qasje e vetme: të kuptojmë flokun tuaj dhe të krijojmë një rezultat që duket i rafinuar, ndihet natyral dhe zgjat bukur.</p>
+    </div>
+  </section>
+
+  <section class="services-list section section--ivory">
+    <div class="container services-grid">
+      {services.map((service, index) => <ServiceCard service={service} index={index} />)}
+    </div>
+  </section>
+
+  <section class="process section">
+    <div class="container process-head" data-reveal>
+      <p class="eyebrow">Si punojmë</p>
+      <h2 class="display-md">Nga dëshira te rezultati.</h2>
+    </div>
+    <div class="container process-grid">
+      <article data-reveal><span>01</span><h3>Konsulta</h3><p>Dëgjojmë pritshmëritë tuaja dhe vlerësojmë strukturën, gjendjen dhe historikun e flokut.</p></article>
+      <article data-reveal><span>02</span><h3>Plani</h3><p>Zgjedhim teknikën, nuancën dhe kujdesin e duhur, duke ju shpjeguar qartë çdo hap.</p></article>
+      <article data-reveal><span>03</span><h3>Krijimi</h3><p>Realizojmë shërbimin me saktësi, ritëm të qetë dhe vëmendje të plotë ndaj detajit.</p></article>
+      <article data-reveal><span>04</span><h3>Mirëmbajtja</h3><p>Ju japim udhëzime praktike që rezultati dhe shëndeti i flokut të ruhen sa më gjatë.</p></article>
+    </div>
+  </section>
+
+  <section class="mini-cta section--ivory">
+    <div class="container" data-reveal>
+      <p class="eyebrow">Nuk dini çfarë të zgjidhni?</p>
+      <h2 class="display-md">Filloni me një konsultë.</h2>
+      <a class="button" href={withBase('/kontakt/')}>Na kontaktoni <IconArrow /></a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero { min-height: 78vh; display: flex; align-items: end; padding: 10rem 0 6rem; background: radial-gradient(circle at 80% 40%, rgba(180,120,79,.18), transparent 25rem); }
+  .page-hero-inner { display: grid; grid-template-columns: 1fr .45fr; align-items: end; gap: 4rem; }
+  .page-hero-inner > p { margin: 0 0 .5rem; color: var(--ivory-muted); }
+  .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; color: var(--onyx); }
+  .services-grid :global(.service-card:nth-child(2)) { margin-top: 5rem; }
+  .services-list :global(.service-copy p) { color: #8f5a37; }
+  .process-head { margin-bottom: 4rem; }
+  .process-grid { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid var(--line); }
+  .process-grid article { min-height: 20rem; padding: 2rem 1.5rem; border-right: 1px solid var(--line); }
+  .process-grid article:first-child { border-left: 1px solid var(--line); }
+  .process-grid span { color: var(--copper-light); font-size: .62rem; letter-spacing: .13em; }
+  .process-grid h3 { margin: 4rem 0 1rem; font-family: var(--display); font-size: 2rem; font-weight: 400; }
+  .process-grid p { margin: 0; color: var(--ivory-muted); font-size: .82rem; }
+  .mini-cta { padding-block: clamp(5rem,10vw,9rem); text-align: center; }
+  .mini-cta .eyebrow { justify-content: center; }
+  .mini-cta .button { margin-top: 2rem; }
+  @media (max-width: 850px) {
+    .page-hero-inner { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .process-grid { grid-template-columns: 1fr 1fr; }
+    .process-grid article:nth-child(3) { border-left: 1px solid var(--line); }
+  }
+  @media (max-width: 580px) {
+    .page-hero { min-height: 70vh; }
+    .services-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .services-grid :global(.service-card:nth-child(2)) { margin-top: 0; }
+    .process-grid { grid-template-columns: 1fr; }
+    .process-grid article, .process-grid article:nth-child(3) { min-height: auto; border-left: 1px solid var(--line); }
+    .process-grid h3 { margin-top: 2.5rem; }
+  }
+</style>

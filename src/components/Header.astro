@@ -1,0 +1,113 @@
+---
+import { withBase } from '../utils/paths';
+const pathname = Astro.url.pathname;
+const nav = [
+  { href: '/', label: 'Ballina' },
+  { href: '/sherbimet/', label: 'Shërbimet' },
+  { href: '/rreth-nesh/', label: 'Rreth Nesh' },
+  { href: '/kontakt/', label: 'Kontakt' },
+];
+
+const base = import.meta.env.BASE_URL;
+const currentPath = base !== '/' && pathname.startsWith(base)
+  ? `/${pathname.slice(base.length).replace(/^\/+/, '')}`
+  : pathname;
+const isActive = (href: string) => href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+---
+
+<header class="site-header" data-header>
+  <div class="header-inner">
+    <a href={withBase('/')} class="brand" aria-label="Onyx Hairline — Ballina">
+      <span class="brand-main">ONYX</span>
+      <span class="brand-sub">Hairline</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Navigimi kryesor">
+      {nav.map((item) => (
+        <a class:list={['nav-link', { active: isActive(item.href) }]} href={withBase(item.href)} aria-current={isActive(item.href) ? 'page' : undefined}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <a class="header-cta" href={withBase('/kontakt/')}>Konsultë <span aria-hidden="true">↗</span></a>
+
+    <button class="menu-button" type="button" aria-label="Hap menynë" aria-expanded="false" aria-controls="mobile-menu" data-menu-button>
+      <span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" data-mobile-menu aria-hidden="true">
+    <nav aria-label="Navigimi për celular">
+      {nav.map((item, index) => (
+        <a href={withBase(item.href)}><span>0{index + 1}</span>{item.label}</a>
+      ))}
+    </nav>
+    <p>Bukuri që lë gjurmë.</p>
+  </div>
+</header>
+
+<script>
+  function setupHeader() {
+    const header = document.querySelector<HTMLElement>('[data-header]');
+    const button = header?.querySelector<HTMLButtonElement>('[data-menu-button]');
+    const menu = header?.querySelector<HTMLElement>('[data-mobile-menu]');
+    if (!header || !button || !menu) return;
+
+    const closeMenu = () => {
+      header.classList.remove('menu-open');
+      button.setAttribute('aria-expanded', 'false');
+      button.setAttribute('aria-label', 'Hap menynë');
+      menu.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+
+    button.addEventListener('click', () => {
+      const open = header.classList.toggle('menu-open');
+      button.setAttribute('aria-expanded', String(open));
+      button.setAttribute('aria-label', open ? 'Mbyll menynë' : 'Hap menynë');
+      menu.setAttribute('aria-hidden', String(!open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+
+    menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+
+    const updateHeader = () => header.classList.toggle('scrolled', window.scrollY > 30);
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true });
+  }
+  document.addEventListener('astro:page-load', setupHeader);
+</script>
+
+<style>
+  .site-header { position: fixed; z-index: 50; top: 0; right: 0; left: 0; transition: background-color .35s ease, border-color .35s ease; }
+  .site-header.scrolled, .site-header.menu-open { background: rgba(10,10,9,.92); border-bottom: 1px solid rgba(242,234,223,.1); backdrop-filter: blur(16px); }
+  .header-inner { width: min(100% - 3rem, 1360px); height: 6rem; margin-inline: auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+  .brand { position: relative; z-index: 2; display: inline-flex; width: max-content; flex-direction: column; line-height: .8; }
+  .brand-main { font-family: var(--display); font-size: 1.65rem; letter-spacing: .18em; }
+  .brand-sub { margin-top: .45rem; color: var(--copper-light); font-size: .56rem; font-weight: 600; letter-spacing: .38em; text-transform: uppercase; }
+  .desktop-nav { display: flex; align-items: center; gap: 2.3rem; }
+  .nav-link { position: relative; color: rgba(242,234,223,.75); font-size: .68rem; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; transition: color .25s ease; }
+  .nav-link::after { content: ""; position: absolute; right: 0; bottom: -.55rem; left: 0; height: 1px; background: var(--copper); transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }
+  .nav-link:hover, .nav-link.active { color: var(--ivory); }
+  .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); }
+  .header-cta { justify-self: end; border-bottom: 1px solid var(--copper); font-size: .68rem; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; }
+  .header-cta span { margin-left: .4rem; color: var(--copper-light); }
+  .menu-button { position: relative; z-index: 2; display: none; width: 2.75rem; height: 2.75rem; justify-self: end; border: 0; background: transparent; color: var(--ivory); }
+  .menu-button span { position: absolute; left: .45rem; width: 1.85rem; height: 1px; background: currentColor; transition: transform .3s ease, top .3s ease; }
+  .menu-button span:first-child { top: 1.05rem; }
+  .menu-button span:last-child { top: 1.65rem; }
+  .menu-open .menu-button span:first-child { top: 1.35rem; transform: rotate(45deg); }
+  .menu-open .menu-button span:last-child { top: 1.35rem; transform: rotate(-45deg); }
+  .mobile-menu { position: fixed; inset: 0; display: grid; align-content: center; padding: 7rem 1.5rem 3rem; background: var(--onyx); opacity: 0; visibility: hidden; transform: translateY(-1rem); transition: opacity .3s ease, transform .3s ease, visibility .3s; }
+  .menu-open .mobile-menu { opacity: 1; visibility: visible; transform: none; }
+  .mobile-menu nav { display: grid; }
+  .mobile-menu nav a { display: flex; align-items: baseline; gap: 1rem; padding: .55rem 0; font-family: var(--display); font-size: clamp(3rem, 13vw, 5rem); line-height: 1; }
+  .mobile-menu nav span { color: var(--copper-light); font-family: var(--sans); font-size: .6rem; letter-spacing: .15em; }
+  .mobile-menu p { margin-top: 3rem; color: var(--ivory-muted); font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; }
+  @media (max-width: 800px) {
+    .header-inner { width: min(100% - 1.5rem, 1360px); height: 5rem; grid-template-columns: 1fr auto; }
+    .desktop-nav, .header-cta { display: none; }
+    .menu-button { display: block; }
+  }
+</style>

@@ -1,0 +1,102 @@
+<div class="hair-layer" aria-hidden="true" data-hair-layer>
+  <svg viewBox="0 0 420 1600" preserveAspectRatio="none">
+    <!-- Gjurmët bazë mbeten të dukshme nga kreu deri në fund të faqes. -->
+    <path class="hair-path hair-path--base hair-path--base-main" d="M354 -45C84 65 402 186 150 294C-15 365 373 484 128 596C-25 666 337 791 105 901C-28 965 300 1089 78 1200C-42 1260 258 1391 27 1645" />
+    <path class="hair-path hair-path--base hair-path--base-soft" d="M406 -55C145 80 431 206 208 323C38 412 408 521 180 640C25 721 378 839 154 958C9 1035 342 1158 121 1272C16 1327 246 1470 64 1640" />
+    <path class="hair-path hair-path--base hair-path--base-fine" d="M310 -60C56 51 352 178 105 279C-54 344 326 465 77 570C-73 633 292 757 56 864C-80 926 260 1055 30 1164C-65 1209 199 1375 -18 1610" />
+    <!-- Shtresat e ndritshme vizatohen gradualisht mbi gjurmën e dukshme. -->
+    <path class="hair-path hair-path--main" data-hair-path d="M354 -45C84 65 402 186 150 294C-15 365 373 484 128 596C-25 666 337 791 105 901C-28 965 300 1089 78 1200C-42 1260 258 1391 27 1645" />
+    <path class="hair-path hair-path--soft" data-hair-path d="M406 -55C145 80 431 206 208 323C38 412 408 521 180 640C25 721 378 839 154 958C9 1035 342 1158 121 1272C16 1327 246 1470 64 1640" />
+    <path class="hair-path hair-path--fine" data-hair-path d="M310 -60C56 51 352 178 105 279C-54 344 326 465 77 570C-73 633 292 757 56 864C-80 926 260 1055 30 1164C-65 1209 199 1375 -18 1610" />
+  </svg>
+</div>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+  let hairContext: gsap.Context | undefined;
+  let revealTriggers: ScrollTrigger[] = [];
+
+  function setupMotion() {
+    hairContext?.revert();
+    revealTriggers.forEach((trigger) => trigger.kill());
+    revealTriggers = [];
+
+    const layer = document.querySelector<HTMLElement>('[data-hair-layer]');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.documentElement.classList.toggle('reduced-motion', reduceMotion);
+    if (!layer || reduceMotion) {
+      layer?.classList.add('is-static');
+      return;
+    }
+
+    layer.classList.remove('is-static');
+    hairContext = gsap.context(() => {
+      const paths = gsap.utils.toArray<SVGPathElement>('[data-hair-path]');
+      paths.forEach((path, index) => {
+        const length = path.getTotalLength();
+        gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
+        gsap.to(path, {
+          strokeDashoffset: index === 1 ? length * .12 : 0,
+          ease: 'none',
+          scrollTrigger: {
+            id: `onyx-hair-${index}`,
+            trigger: document.documentElement,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 1.15 + index * .2,
+          },
+        });
+      });
+
+      gsap.to(layer, {
+        xPercent: -4,
+        rotation: .6,
+        ease: 'sine.inOut',
+        scrollTrigger: {
+          id: 'onyx-hair-drift',
+          trigger: document.documentElement,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 2,
+        },
+      });
+
+      document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((item) => {
+        const animation = gsap.to(item, {
+          opacity: 1,
+          y: 0,
+          duration: .9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: item,
+            start: 'top 88%',
+            end: 'bottom 15%',
+            toggleActions: 'play none none reverse',
+          },
+        });
+        if (animation.scrollTrigger) revealTriggers.push(animation.scrollTrigger);
+      });
+    });
+    ScrollTrigger.refresh();
+  }
+
+  document.addEventListener('astro:page-load', setupMotion);
+</script>
+
+<style>
+  .hair-layer { position: fixed; z-index: 1; top: 0; right: -2rem; width: clamp(11rem, 27vw, 27rem); height: 100vh; opacity: .62; pointer-events: none; will-change: transform; }
+  .hair-layer svg { width: 100%; height: 100%; overflow: visible; }
+  .hair-path { fill: none; stroke: var(--copper); stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  .hair-path--base { stroke: var(--copper-light); }
+  .hair-path--base-main { stroke-width: .75; opacity: .42; }
+  .hair-path--base-soft { stroke-width: .45; opacity: .25; }
+  .hair-path--base-fine { stroke-width: .35; opacity: .2; }
+  .hair-path--main { stroke-width: 1.4; opacity: .78; }
+  .hair-path--soft { stroke-width: .7; opacity: .4; }
+  .hair-path--fine { stroke-width: .45; opacity: .3; }
+  .hair-layer.is-static .hair-path { stroke-dasharray: none !important; stroke-dashoffset: 0 !important; }
+  @media (max-width: 767px) { .hair-layer { right: -4.5rem; width: 14rem; opacity: .42; } }
+</style>

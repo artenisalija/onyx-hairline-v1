@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import IconArrow from '../components/IconArrow.astro';
+---
+
+<BaseLayout title="Kontakt" description="Kontaktoni Onyx Hairline për një konsultë mbi zgjatimet, ngjyrosjen ose trajtimet profesionale të flokëve.">
+  <section class="contact-hero">
+    <div class="container contact-heading" data-reveal>
+      <p class="eyebrow">Jemi këtu për ju</p>
+      <h1 class="display-xl">Le të flasim për<br /><em>flokët tuaj.</em></h1>
+      <p>Na tregoni çfarë dëshironi të ndryshoni. Do t’ju kontaktojmë për të kuptuar nevojat tuaja dhe për t’ju udhëzuar drejt shërbimit të duhur.</p>
+    </div>
+  </section>
+
+  <section class="contact-main section--ivory">
+    <div class="container contact-grid">
+      <aside class="contact-info" data-reveal>
+        <p class="eyebrow">Informacion</p>
+        <div class="info-item">
+          <span>Adresa</span>
+          <p>Adresa e Onyx Hairline<br />Tiranë, Shqipëri</p>
+          <small>Adresë e përkohshme — për konfirmim</small>
+        </div>
+        <div class="info-item">
+          <span>Orari</span>
+          <p>E Hënë – E Shtunë<br />09:00 – 19:00</p>
+          <small>Orar i përkohshëm — për konfirmim</small>
+        </div>
+        <div class="info-item">
+          <span>Kontakti</span>
+          <!-- TODO: konfirmo numrin e kontaktit të Onyx Hairline -->
+          <a href="tel:+355XXXXXXXXX">+355 XX XXX XXXX</a>
+          <a href="https://wa.me/355XXXXXXXXX" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a>
+        </div>
+        <div class="quick-actions">
+          <a href="tel:+355XXXXXXXXX">Na Telefononi</a>
+          <a href="https://wa.me/355XXXXXXXXX" target="_blank" rel="noopener noreferrer">Na Shkruani</a>
+        </div>
+      </aside>
+
+      <div class="form-wrap" data-reveal>
+        <p class="form-kicker">Dërgoni një kërkesë</p>
+        <h2>Si mund t’ju ndihmojmë?</h2>
+        <!-- TODO: vendos adresën reale të shërbimit të formularit para publikimit. -->
+        <form action="#" method="post" data-contact-form data-endpoint="">
+          <div class="field">
+            <label for="emri">Emri dhe mbiemri</label>
+            <input id="emri" name="emri" type="text" autocomplete="name" placeholder="Shkruani emrin tuaj" required />
+          </div>
+          <div class="field">
+            <label for="telefoni">Numri i telefonit</label>
+            <input id="telefoni" name="telefoni" type="tel" autocomplete="tel" inputmode="tel" placeholder="p.sh. +355 6X XXX XXXX" required />
+          </div>
+          <div class="field">
+            <label for="sherbimi">Shërbimi që ju intereson</label>
+            <select id="sherbimi" name="sherbimi">
+              <option value="">Zgjidhni një shërbim</option>
+              <option value="zgjatime-flokesh">Zgjatime Flokësh</option>
+              <option value="ngjyrosje-flokesh">Ngjyrosje Flokësh</option>
+              <option value="trajtime-flokesh">Trajtime Flokësh</option>
+              <option value="konsulte">Konsultë e përgjithshme</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="mesazhi">Mesazhi</label>
+            <textarea id="mesazhi" name="mesazhi" rows="5" placeholder="Na tregoni shkurt çfarë dëshironi…" required></textarea>
+          </div>
+          <label class="consent">
+            <input type="checkbox" name="pelqimi" required />
+            <span>Pranoj të kontaktohem nga Onyx Hairline në lidhje me këtë kërkesë.</span>
+          </label>
+          <button class="button" type="submit">Dërgo kërkesën <IconArrow /></button>
+          <p class="form-note">Formular demonstrues — dërgimi real do të aktivizohet pasi të lidhet shërbimi i formularit.</p>
+          <p class="form-status" data-form-status aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-visual">
+    <div class="contact-image"></div>
+    <div class="contact-overlay"></div>
+    <div class="container" data-reveal>
+      <p class="eyebrow">Vizita juaj</p>
+      <h2 class="display-md">Një përvojë e qetë,<br />nga fillimi në fund.</h2>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  function setupContactForm() {
+    const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+    const status = form?.querySelector<HTMLElement>('[data-form-status]');
+    if (!form || !status) return;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const endpoint = form.dataset.endpoint;
+      if (!endpoint) {
+        status.textContent = 'Faleminderit! Formulari është në modalitet demonstrues. Për kontakt të menjëhershëm, përdorni telefonin ose WhatsApp.';
+        status.classList.add('visible');
+        return;
+      }
+
+      const submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (submitButton) submitButton.disabled = true;
+      status.textContent = 'Duke dërguar kërkesën…';
+      status.classList.add('visible');
+
+      try {
+        const response = await fetch(endpoint, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        if (!response.ok) throw new Error('Dërgimi dështoi');
+        form.reset();
+        status.textContent = 'Kërkesa u dërgua. Do t’ju kontaktojmë sa më shpejt.';
+      } catch {
+        status.textContent = 'Kërkesa nuk u dërgua. Ju lutemi, na kontaktoni me telefon ose WhatsApp.';
+      } finally {
+        if (submitButton) submitButton.disabled = false;
+      }
+    });
+  }
+  document.addEventListener('astro:page-load', setupContactForm);
+</script>
+
+<style>
+  .contact-hero { min-height: 76vh; display: flex; align-items: end; padding: 10rem 0 6rem; background: radial-gradient(circle at 80% 35%, rgba(180,120,79,.2),transparent 25rem); }
+  .contact-heading > p:last-child { max-width: 42rem; margin: 2rem 0 0; color: var(--ivory-muted); }
+  .contact-main { padding-block: clamp(5rem,10vw,9rem); }
+  .contact-grid { display: grid; grid-template-columns: .7fr 1.3fr; gap: clamp(3rem,10vw,10rem); }
+  .contact-info { padding-right: 2rem; border-right: 1px solid rgba(10,10,9,.15); }
+  .info-item { padding: 1.5rem 0; border-bottom: 1px solid rgba(10,10,9,.15); }
+  .info-item > span { display: block; margin-bottom: .65rem; color: #8f5a37; font-size: .62rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+  .info-item p, .info-item a { display: block; margin: 0; font-family: var(--display); font-size: 1.45rem; line-height: 1.3; }
+  .info-item a + a { margin-top: .3rem; }
+  .info-item small { display: block; margin-top: .6rem; color: #8a8178; font-size: .62rem; letter-spacing: .05em; text-transform: uppercase; }
+  .quick-actions { display: flex; gap: .75rem; margin-top: 2rem; }
+  .quick-actions a { padding-bottom: .3rem; border-bottom: 1px solid #8f5a37; font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+  .form-kicker { margin: 0 0 .7rem; color: #8f5a37; font-size: .65rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+  .form-wrap h2 { margin: 0 0 3rem; font-family: var(--display); font-size: clamp(2.7rem,5vw,4.5rem); font-weight: 400; line-height: 1; }
+  form { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 1rem; }
+  .field { display: flex; flex-direction: column; }
+  .field:nth-child(4) { grid-column: 1 / -1; }
+  .field label { margin-bottom: .5rem; color: #5f5851; font-size: .64rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+  .field input, .field textarea, .field select { width: 100%; border: 0; border-bottom: 1px solid rgba(10,10,9,.3); border-radius: 0; outline: 0; background: transparent; color: var(--onyx); padding: .75rem 0; transition: border-color .2s ease; }
+  .field input:focus, .field textarea:focus, .field select:focus { border-color: #8f5a37; }
+  .field input::placeholder, .field textarea::placeholder { color: #9d958d; }
+  .field textarea { resize: vertical; }
+  .consent { grid-column: 1 / -1; display: flex; align-items: start; gap: .75rem; color: #6e665e; font-size: .75rem; cursor: pointer; }
+  .consent input { width: 1rem; height: 1rem; margin-top: .3rem; accent-color: var(--copper); }
+  form .button { width: max-content; margin-top: .5rem; }
+  form .button:disabled { opacity: .6; cursor: wait; }
+  .form-note { grid-column: 1 / -1; margin: .25rem 0 0; color: #8a8178; font-size: .65rem; }
+  .form-status { grid-column: 1 / -1; display: none; margin: 0; padding: 1rem; border-left: 2px solid #8f5a37; background: rgba(180,120,79,.09); color: #4d4741; font-size: .78rem; }
+  .form-status.visible { display: block; }
+  .contact-visual { position: relative; min-height: 65vh; display: flex; align-items: center; overflow: hidden; }
+  .contact-image, .contact-overlay { position: absolute; inset: 0; }
+  .contact-image { background: url('https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&fm=webp&w=2000&q=84') center / cover; }
+  .contact-overlay { background: linear-gradient(90deg,rgba(7,7,6,.82),rgba(7,7,6,.25)); }
+  .contact-visual .container { position: relative; z-index: 1; }
+  @media (max-width: 800px) {
+    .contact-grid { grid-template-columns: 1fr; }
+    .contact-info { padding-right: 0; border-right: 0; }
+  }
+  @media (max-width: 540px) {
+    form { grid-template-columns: 1fr; }
+    .field:nth-child(4), .consent, .form-note, .form-status { grid-column: auto; }
+    .quick-actions { flex-direction: column; align-items: flex-start; }
+  }
+</style>

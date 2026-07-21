@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import IconArrow from '../components/IconArrow.astro';
+import { withBase } from '../utils/paths';
+---
+
+<BaseLayout title="Faqja nuk u gjet" description="Faqja që kërkuat nuk u gjet. Kthehuni te Onyx Hairline.">
+  <section class="not-found">
+    <div class="container" data-reveal>
+      <p class="code">404</p>
+      <p class="eyebrow">Faqja nuk u gjet</p>
+      <h1 class="display-lg">Kjo faqe ka ndryshuar drejtim.</h1>
+      <p>Adresa mund të jetë shkruar gabim ose faqja mund të jetë zhvendosur.</p>
+      <a class="button" href={withBase('/')}>Kthehuni në Ballinë <IconArrow /></a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found { min-height: 100svh; display: grid; place-items: center; padding: 9rem 0 5rem; text-align: center; background: radial-gradient(circle at center,rgba(180,120,79,.14),transparent 25rem); }
+  .code { margin: 0 0 1rem; color: var(--copper-light); font-family: var(--display); font-size: 7rem; line-height: .8; opacity: .4; }
+  .not-found .eyebrow { justify-content: center; }
+  .not-found h1 { max-width: 12ch; margin-inline: auto; }
+  .not-found .container > p:not(.code,.eyebrow) { margin: 1.5rem auto 2rem; color: var(--ivory-muted); }
+</style>

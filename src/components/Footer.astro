@@ -1,0 +1,74 @@
+---
+import IconArrow from './IconArrow.astro';
+import { withBase } from '../utils/paths';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer-top">
+    <div>
+      <p class="footer-kicker">Le të krijojmë pamjen tuaj</p>
+      <h2>Flokë që flasin<br />para jush.</h2>
+    </div>
+    <a class="footer-contact" href={withBase('/kontakt/')}>Na kontaktoni <IconArrow /></a>
+  </div>
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <strong>ONYX</strong><span>Hairline</span>
+      <p>Ekspertizë në zgjatime, ngjyrosje dhe trajtime profesionale të flokëve.</p>
+    </div>
+    <div>
+      <h3>Eksploroni</h3>
+      <a href={withBase('/')}>Ballina</a>
+      <a href={withBase('/sherbimet/')}>Shërbimet</a>
+      <a href={withBase('/rreth-nesh/')}>Rreth Nesh</a>
+      <a href={withBase('/kontakt/')}>Kontakt</a>
+    </div>
+    <div>
+      <h3>Shërbimet</h3>
+      <a href={withBase('/sherbimet/zgjatime-flokesh/')}>Zgjatime Flokësh</a>
+      <a href={withBase('/sherbimet/ngjyrosje-flokesh/')}>Ngjyrosje Flokësh</a>
+      <a href={withBase('/sherbimet/trajtime-flokesh/')}>Trajtime Flokësh</a>
+    </div>
+    <div>
+      <h3>Na ndiqni</h3>
+      <a href="#" aria-label="Instagram — lidhja do të shtohet">Instagram ↗</a>
+      <a href="#" aria-label="Facebook — lidhja do të shtohet">Facebook ↗</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>© {year} Onyx Hairline. Të gjitha të drejtat e rezervuara.</p>
+    <p>Faqe e pavarur prezantuese.</p>
+  </div>
+</footer>
+
+<style>
+  .footer { position: relative; z-index: 3; padding: clamp(5rem,9vw,8rem) 0 1.5rem; background: #070706; border-top: 1px solid var(--line); }
+  .footer-top { display: flex; align-items: end; justify-content: space-between; gap: 2rem; padding-bottom: clamp(4rem,8vw,7rem); }
+  .footer-kicker { margin: 0 0 1rem; color: var(--copper-light); font-size: .7rem; font-weight: 650; letter-spacing: .17em; text-transform: uppercase; }
+  .footer h2 { margin: 0; font-family: var(--display); font-size: clamp(3.5rem,7vw,7.5rem); font-weight: 400; letter-spacing: -.04em; line-height: .82; }
+  .footer-contact { display: inline-flex; align-items: center; gap: 1.2rem; padding-bottom: .5rem; border-bottom: 1px solid var(--copper); font-size: .72rem; font-weight: 650; letter-spacing: .13em; text-transform: uppercase; white-space: nowrap; }
+  .footer-contact :global(svg) { width: 1.1rem; }
+  .footer-grid { display: grid; grid-template-columns: 2fr repeat(3,1fr); gap: 3rem; padding: 4rem 0; border-top: 1px solid var(--line); }
+  .footer-grid > div:not(.footer-brand) { display: flex; flex-direction: column; gap: .55rem; }
+  .footer-brand strong { display: block; font-family: var(--display); font-size: 2rem; font-weight: 400; letter-spacing: .17em; line-height: 1; }
+  .footer-brand span { color: var(--copper-light); font-size: .58rem; letter-spacing: .4em; text-transform: uppercase; }
+  .footer-brand p { max-width: 21rem; margin: 1.5rem 0 0; color: #8f8981; font-size: .86rem; }
+  .footer-grid h3 { margin: 0 0 .85rem; color: var(--copper-light); font-size: .63rem; letter-spacing: .16em; text-transform: uppercase; }
+  .footer-grid a { width: max-content; color: #aaa39b; font-size: .82rem; transition: color .2s ease; }
+  .footer-grid a:hover { color: var(--ivory); }
+  .footer-bottom { display: flex; justify-content: space-between; gap: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: #6f6a64; font-size: .66rem; letter-spacing: .06em; text-transform: uppercase; }
+  .footer-bottom p { margin: 0; }
+  @media (max-width: 800px) {
+    .footer-top { display: block; }
+    .footer-contact { margin-top: 2.5rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: 1 / -1; margin-bottom: 1rem; }
+  }
+  @media (max-width: 480px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-brand { grid-column: auto; }
+    .footer-bottom { display: block; }
+    .footer-bottom p + p { margin-top: .5rem; }
+  }
+</style>
