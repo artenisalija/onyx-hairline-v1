@@ -2,6 +2,8 @@
 
 Faqe prezantuese plotësisht statike për Onyx Hairline, e ndërtuar me Astro, Tailwind CSS dhe GSAP. Projekti nuk përdor bazë të dhënash, rrugë API apo proces Node.js në host.
 
+**Pamja publike:** [artenisalija.github.io/onyx-hairline-v1](https://artenisalija.github.io/onyx-hairline-v1/)
+
 ## Kërkesat lokale
 
 - Node.js 20 ose më i ri
