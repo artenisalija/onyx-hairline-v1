@@ -12,7 +12,8 @@ interface Props {
   description: string;
   image?: string;
 }
-const { title, description, image = 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&fm=webp&w=1600&q=80' } = Astro.props;
+const { title, description, image = '/media/img/og-image.jpg' } = Astro.props;
+const ogImage = new URL(withBase(image), Astro.site ?? Astro.url).href;
 const fullTitle = title.includes('Onyx Hairline') ? title : `${title} | Onyx Hairline`;
 ---
 
@@ -22,13 +23,13 @@ const fullTitle = title.includes('Onyx Hairline') ? title : `${title} | Onyx Hai
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#0a0a09" />
+    <meta name="theme-color" content="#fbf8f3" />
     <meta name="description" content={description} />
     <meta property="og:locale" content="sq_AL" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={image} />
+    <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -49,7 +50,40 @@ const fullTitle = title.includes('Onyx Hairline') ? title : `${title} | Onyx Hai
   </body>
 </html>
 
+<script>
+  // Background loops: load when near the viewport, play only while visible,
+  // and stay on the poster frame for visitors who prefer reduced motion.
+  let loopObserver: IntersectionObserver | undefined;
+
+  function setupLoopVideos() {
+    loopObserver?.disconnect();
+    const videos = document.querySelectorAll<HTMLVideoElement>('video[data-loop-video]');
+    if (!videos.length) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      videos.forEach((video) => { video.removeAttribute('autoplay'); video.pause(); });
+      return;
+    }
+
+    loopObserver = new IntersectionObserver((entries) => {
+      entries.forEach(({ target, isIntersecting }) => {
+        const video = target as HTMLVideoElement;
+        if (!isIntersecting) { video.pause(); return; }
+        if (video.dataset.loopVideo === 'lazy' && !video.dataset.loaded) {
+          video.querySelectorAll<HTMLSourceElement>('source[data-src]').forEach((source) => { source.src = source.dataset.src!; });
+          video.dataset.loaded = 'true';
+          video.load();
+        }
+        video.play().catch(() => {});
+      });
+    }, { rootMargin: '200px 0px' });
+
+    videos.forEach((video) => loopObserver!.observe(video));
+  }
+  document.addEventListener('astro:page-load', setupLoopVideos);
+</script>
+
 <style is:global>
-  .skip-link { position: fixed; z-index: 100; top: .5rem; left: .5rem; padding: .7rem 1rem; background: var(--ivory); color: var(--onyx); transform: translateY(-150%); transition: transform .2s ease; }
+  .skip-link { position: fixed; z-index: 100; top: .5rem; left: .5rem; padding: .7rem 1rem; background: var(--fg); color: var(--bg); transform: translateY(-150%); transition: transform .2s ease; }
   .skip-link:focus { transform: none; }
 </style>

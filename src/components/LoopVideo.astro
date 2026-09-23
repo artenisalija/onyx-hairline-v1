@@ -1,0 +1,34 @@
+---
+import { withBase } from '../utils/paths';
+
+interface Props {
+  src: string;
+  poster: string;
+  /** Portrait version served on tall viewports (phones). */
+  mobileSrc?: string;
+  /** Accessible description; omit for purely decorative loops. */
+  label?: string;
+  /** Start immediately (above the fold). Otherwise it loads when scrolled into view. */
+  eager?: boolean;
+}
+const { src, poster, mobileSrc, label, eager = false } = Astro.props;
+const srcAttr = eager ? 'src' : 'data-src';
+---
+
+<video
+  class="loop-video"
+  muted
+  loop
+  playsinline
+  disablepictureinpicture
+  autoplay={eager}
+  preload={eager ? 'auto' : 'none'}
+  poster={withBase(poster)}
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+  data-loop-video={eager ? 'eager' : 'lazy'}
+>
+  {mobileSrc && <source {...{ [srcAttr]: withBase(mobileSrc) }} type="video/mp4" media="(max-aspect-ratio: 1/1)" />}
+  <source {...{ [srcAttr]: withBase(src) }} type="video/mp4" />
+</video>

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import IconArrow from '../components/IconArrow.astro';
+import LoopVideo from '../components/LoopVideo.astro';
 import type { Service } from '../data/services';
 import { withBase } from '../utils/paths';
 
@@ -11,8 +12,9 @@ const { service } = Astro.props;
 <BaseLayout title={service.title} description={`${service.tagline} Zbuloni shërbimin profesional të ${service.title.toLowerCase()} nga Onyx Hairline.`} image={service.heroImage}>
   <section class="service-hero">
     <div class="service-hero-media">
-      <!-- TODO: zëvendëso fotografinë e përkohshme me imazhin përfundimtar të Onyx Hairline -->
-      <img src={service.heroImage} alt={service.heroAlt} decoding="async" fetchpriority="high" />
+      {service.heroVideo
+        ? <LoopVideo src={service.heroVideo} poster={service.heroImage} label={service.heroAlt} eager />
+        : <img src={withBase(service.heroImage)} alt={service.heroAlt} decoding="async" fetchpriority="high" />}
     </div>
     <div class="service-hero-shade"></div>
     <div class="container service-hero-content">
@@ -58,18 +60,18 @@ const { service } = Astro.props;
     </div>
   </section>
 
-  <section class="section gallery-section section--charcoal">
+  <section class="section gallery-section section--sand">
     <div class="container gallery-head" data-reveal>
       <div>
         <p class="eyebrow">Frymëzim</p>
         <h2 class="display-md">Detaje që bëjnë diferencën.</h2>
       </div>
-      <p>Fotografitë janë materiale të përkohshme dhe do të zëvendësohen me punimet origjinale të Onyx Hairline.</p>
+      <p>Punime dhe materiale reale nga salloni Onyx Hairline.</p>
     </div>
     <div class="container service-gallery">
       {service.gallery.map((image, index) => (
         <figure class:list={['image-wrap', `gallery-item-${index + 1}`]} data-reveal>
-          <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+          <img src={withBase(image.src)} alt={image.alt} loading="lazy" decoding="async" />
         </figure>
       ))}
     </div>
@@ -95,7 +97,7 @@ const { service } = Astro.props;
   </section>
 
   <section class="service-cta">
-    <div class="service-cta-bg" style={`background-image: url('${service.heroImage}')`}></div>
+    <div class="service-cta-bg" style={`background-image: url('${withBase(service.heroImage)}')`}></div>
     <div class="service-cta-shade"></div>
     <div class="container" data-reveal>
       <p class="eyebrow">Hapi i ardhshëm</p>
@@ -122,27 +124,27 @@ const { service } = Astro.props;
   .service-hero { position: relative; min-height: 100svh; display: flex; align-items: end; overflow: hidden; }
   .service-hero-media, .service-hero-shade { position: absolute; inset: 0; }
   .service-hero-media img { width: 100%; height: 100%; object-fit: cover; }
-  .service-hero-shade { background: linear-gradient(90deg, rgba(7,7,6,.86) 0%, rgba(7,7,6,.5) 50%, rgba(7,7,6,.2)), linear-gradient(0deg, rgba(7,7,6,.8), transparent 50%); }
+  .service-hero-shade { background: var(--hero-wash); }
   .service-hero-content { position: relative; z-index: 2; padding-bottom: clamp(5rem,10vh,8rem); }
-  .back-link { display: block; width: max-content; margin-bottom: clamp(4rem,10vh,8rem); color: rgba(242,234,223,.72); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; }
+  .back-link { display: block; width: max-content; margin-bottom: clamp(4rem,10vh,8rem); color: var(--fg-muted); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; }
   .service-hero h1 { max-width: 12ch; }
-  .hero-tagline { max-width: 39rem; margin: 1.5rem 0 2rem; color: rgba(242,234,223,.8); font-size: clamp(1.05rem,1.8vw,1.35rem); }
-  .scroll-note { position: absolute; z-index: 2; right: 2rem; bottom: 2rem; display: flex; align-items: center; gap: .75rem; color: rgba(242,234,223,.55); font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; writing-mode: vertical-rl; }
+  .hero-tagline { max-width: 39rem; margin: 1.5rem 0 2rem; color: var(--fg-muted); font-size: clamp(1.05rem,1.8vw,1.35rem); }
+  .scroll-note { position: absolute; z-index: 2; right: 2rem; bottom: 2rem; display: flex; align-items: center; gap: .75rem; color: var(--fg-muted); font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; writing-mode: vertical-rl; }
   .scroll-note span { width: 1px; height: 3rem; background: var(--copper); }
   .overview-grid { display: grid; grid-template-columns: .9fr 1fr; gap: clamp(3rem,8vw,9rem); }
   .overview-copy { padding-top: .4rem; }
   .overview-copy p { margin: 0; color: #4d4842; }
   .overview-copy p + p { margin-top: 1.3rem; }
   .benefits-head { display: flex; align-items: end; justify-content: space-between; gap: 4rem; margin-bottom: clamp(3rem,6vw,5rem); }
-  .benefits-head > p { max-width: 25rem; margin: 0; color: var(--ivory-muted); }
+  .benefits-head > p { max-width: 25rem; margin: 0; color: var(--fg-muted); }
   .benefits-grid { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid var(--line); }
   .benefits-grid article { min-height: 18rem; padding: 2rem 1.5rem; border-right: 1px solid var(--line); }
   .benefits-grid article:first-child { border-left: 1px solid var(--line); }
-  .benefits-grid span { color: var(--copper-light); font-size: .65rem; letter-spacing: .13em; }
+  .benefits-grid span { color: var(--accent-ink); font-size: .65rem; letter-spacing: .13em; }
   .benefits-grid h3 { margin: 4.5rem 0 1rem; font-family: var(--display); font-size: 1.8rem; font-weight: 400; line-height: 1.05; }
-  .benefits-grid p { margin: 0; color: var(--ivory-muted); font-size: .82rem; }
+  .benefits-grid p { margin: 0; color: var(--fg-muted); font-size: .82rem; }
   .gallery-head { display: flex; align-items: end; justify-content: space-between; gap: 3rem; margin-bottom: 3.5rem; }
-  .gallery-head > p { max-width: 26rem; margin: 0; color: var(--ivory-muted); font-size: .82rem; }
+  .gallery-head > p { max-width: 26rem; margin: 0; color: var(--fg-muted); font-size: .82rem; }
   .service-gallery { display: grid; grid-template-columns: 1.15fr .85fr; grid-template-rows: 22rem 22rem; gap: 1rem; }
   .service-gallery figure { margin: 0; }
   .service-gallery img { width: 100%; height: 100%; object-fit: cover; }
@@ -162,7 +164,7 @@ const { service } = Astro.props;
   .service-cta { position: relative; min-height: 80vh; display: flex; align-items: center; overflow: hidden; }
   .service-cta-bg, .service-cta-shade { position: absolute; inset: 0; }
   .service-cta-bg { background-position: center; background-size: cover; transform: scale(1.04); }
-  .service-cta-shade { background: linear-gradient(90deg, rgba(7,7,6,.9), rgba(7,7,6,.45)); }
+  .service-cta-shade { background: var(--band-wash); }
   .service-cta .container { position: relative; z-index: 1; }
   .service-cta .button { margin-top: 2.25rem; }
   @media (max-width: 900px) {

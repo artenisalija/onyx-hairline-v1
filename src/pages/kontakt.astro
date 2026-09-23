@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import IconArrow from '../components/IconArrow.astro';
+import { withBase } from '../utils/paths';
 ---
 
 <BaseLayout title="Kontakt" description="Kontaktoni Onyx Hairline për një konsultë mbi zgjatimet, ngjyrosjen ose trajtimet profesionale të flokëve.">
@@ -78,7 +79,7 @@ import IconArrow from '../components/IconArrow.astro';
   </section>
 
   <section class="contact-visual">
-    <div class="contact-image"></div>
+    <div class="contact-image" style={`background-image: url('${withBase('/media/img/contact-bundles.webp')}')`}></div>
     <div class="contact-overlay"></div>
     <div class="container" data-reveal>
       <p class="eyebrow">Vizita juaj</p>
@@ -125,8 +126,8 @@ import IconArrow from '../components/IconArrow.astro';
 </script>
 
 <style>
-  .contact-hero { min-height: 76vh; display: flex; align-items: end; padding: 10rem 0 6rem; background: radial-gradient(circle at 80% 35%, rgba(180,120,79,.2),transparent 25rem); }
-  .contact-heading > p:last-child { max-width: 42rem; margin: 2rem 0 0; color: var(--ivory-muted); }
+  .contact-hero { min-height: 76vh; display: flex; align-items: end; padding: 10rem 0 6rem; background: radial-gradient(circle at 80% 35%, rgba(180,120,79,.12),transparent 25rem); }
+  .contact-heading > p:last-child { max-width: 42rem; margin: 2rem 0 0; color: var(--fg-muted); }
   .contact-main { padding-block: clamp(5rem,10vw,9rem); }
   .contact-grid { display: grid; grid-template-columns: .7fr 1.3fr; gap: clamp(3rem,10vw,10rem); }
   .contact-info { padding-right: 2rem; border-right: 1px solid rgba(10,10,9,.15); }
@@ -156,8 +157,8 @@ import IconArrow from '../components/IconArrow.astro';
   .form-status.visible { display: block; }
   .contact-visual { position: relative; min-height: 65vh; display: flex; align-items: center; overflow: hidden; }
   .contact-image, .contact-overlay { position: absolute; inset: 0; }
-  .contact-image { background: url('https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&fm=webp&w=2000&q=84') center / cover; }
-  .contact-overlay { background: linear-gradient(90deg,rgba(7,7,6,.82),rgba(7,7,6,.25)); }
+  .contact-image { background-position: center; background-size: cover; }
+  .contact-overlay { background: var(--band-wash); }
   .contact-visual .container { position: relative; z-index: 1; }
   @media (max-width: 800px) {
     .contact-grid { grid-template-columns: 1fr; }

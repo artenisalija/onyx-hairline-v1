@@ -7,7 +7,7 @@ const isGitHubPages = process.env.GITHUB_ACTIONS === 'true' && Boolean(githubRep
 export default defineConfig({
   output: 'static',
   trailingSlash: 'always',
-  site: isGitHubPages ? `https://artenisalija.github.io/${githubRepository}` : undefined,
+  site: isGitHubPages ? `https://artenisalija.github.io/${githubRepository}` : 'https://onyx-hairline.pages.dev',
   base: isGitHubPages ? `/${githubRepository}` : '/',
   build: {
     format: 'directory',

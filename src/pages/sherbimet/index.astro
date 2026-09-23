@@ -46,19 +46,18 @@ import { withBase } from '../../utils/paths';
 </BaseLayout>
 
 <style>
-  .page-hero { min-height: 78vh; display: flex; align-items: end; padding: 10rem 0 6rem; background: radial-gradient(circle at 80% 40%, rgba(180,120,79,.18), transparent 25rem); }
+  .page-hero { min-height: 78vh; display: flex; align-items: end; padding: 10rem 0 6rem; background: radial-gradient(circle at 80% 40%, rgba(180,120,79,.12), transparent 25rem); }
   .page-hero-inner { display: grid; grid-template-columns: 1fr .45fr; align-items: end; gap: 4rem; }
-  .page-hero-inner > p { margin: 0 0 .5rem; color: var(--ivory-muted); }
+  .page-hero-inner > p { margin: 0 0 .5rem; color: var(--fg-muted); }
   .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; color: var(--onyx); }
   .services-grid :global(.service-card:nth-child(2)) { margin-top: 5rem; }
-  .services-list :global(.service-copy p) { color: #8f5a37; }
-  .process-head { margin-bottom: 4rem; }
+    .process-head { margin-bottom: 4rem; }
   .process-grid { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid var(--line); }
   .process-grid article { min-height: 20rem; padding: 2rem 1.5rem; border-right: 1px solid var(--line); }
   .process-grid article:first-child { border-left: 1px solid var(--line); }
-  .process-grid span { color: var(--copper-light); font-size: .62rem; letter-spacing: .13em; }
+  .process-grid span { color: var(--accent-ink); font-size: .62rem; letter-spacing: .13em; }
   .process-grid h3 { margin: 4rem 0 1rem; font-family: var(--display); font-size: 2rem; font-weight: 400; }
-  .process-grid p { margin: 0; color: var(--ivory-muted); font-size: .82rem; }
+  .process-grid p { margin: 0; color: var(--fg-muted); font-size: .82rem; }
   .mini-cta { padding-block: clamp(5rem,10vw,9rem); text-align: center; }
   .mini-cta .eyebrow { justify-content: center; }
   .mini-cta .button { margin-top: 2rem; }

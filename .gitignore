@@ -3,3 +3,6 @@ dist/
 .astro/
 .DS_Store
 npm-debug.log*
+
+# Raw client footage (source for public/media/, too large for git)
+*.zip
