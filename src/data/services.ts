@@ -41,7 +41,7 @@ export const services: Service[] = [
     gallery: [
       { src: '/media/img/zgjatime-1.webp', alt: 'Krahasim i flokut natyral me tufën e zgjatimeve para vendosjes' },
       { src: '/media/img/zgjatime-2.webp', alt: 'Koleksion tufash me flokë njerëzorë në nuanca të ndryshme, me qesen Onyx' },
-      { src: '/media/img/zgjatime-3.webp', alt: 'Rezultat me zgjatime të drejta bionde para murit me logon Onyx' },
+      { src: '/media/img/zgjatime-3.webp', alt: 'Rezultat me zgjatime flokësh kafe të gjatë me valë dhe shkëlqim' },
     ],
     faq: [
       { question: 'Sa zgjasin zgjatimet e flokëve?', answer: 'Kohëzgjatja varet nga teknika, kujdesi në shtëpi dhe ritmi i rritjes së flokut. Gjatë konsultës përcaktojmë edhe planin e mirëmbajtjes që i përshtatet rutinës suaj.' },
@@ -90,7 +90,7 @@ export const services: Service[] = [
     heroImage: '/media/img/hero-trajtime.webp',
     heroAlt: 'Tufa flokësh kafe me shkëlqim të thellë në dritë natyrale',
     cardImage: '/media/img/card-trajtime.webp',
-    cardAlt: 'Flokë kafe të gjatë me valë dhe shkëlqim të shëndetshëm',
+    cardAlt: 'Detaj i teksturës së flokëve me valë dhe shkëlqim të shëndetshëm',
     description: [
       'Floku ndryshon nga stina, stilimi, ngjyrosja dhe ritmi i jetës. Trajtimet tona nisin me një vlerësim të strukturës dhe nevojave të tij, për të zgjedhur kujdesin që sjell përmirësim të dukshëm pa e rënduar.',
       'Punojmë mbi hidratimin, forcimin dhe butësinë përmes protokolleve profesionale të përshtatura. Qëllimi është të mbështesim fibrën e flokut, të reduktojmë pamjen e dëmtimit dhe t’i rikthejmë shkëlqimin e kontrollin.',
