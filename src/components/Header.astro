@@ -18,8 +18,7 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
 <header class="site-header" data-header>
   <div class="header-inner">
     <a href={withBase('/')} class="brand" aria-label="Onyx Hairline — Ballina">
-      <span class="brand-main">ONYX</span>
-      <span class="brand-sub">Hairline</span>
+      <img src={withBase('/media/img/logo-onyx-hairline.png')} alt="Onyx Hairline" width="600" height="190" />
     </a>
 
     <nav class="desktop-nav" aria-label="Navigimi kryesor">
@@ -84,8 +83,7 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
   .site-header.scrolled, .site-header.menu-open { background: rgb(var(--wash) / .92); border-bottom: 1px solid var(--line); backdrop-filter: blur(16px); }
   .header-inner { width: min(100% - 3rem, 1360px); height: 6rem; margin-inline: auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
   .brand { position: relative; z-index: 2; display: inline-flex; width: max-content; flex-direction: column; line-height: .8; }
-  .brand-main { font-family: var(--display); font-size: 1.65rem; letter-spacing: .18em; }
-  .brand-sub { margin-top: .45rem; color: var(--accent-ink); font-size: .56rem; font-weight: 600; letter-spacing: .38em; text-transform: uppercase; }
+  .brand img { display: block; width: clamp(7.5rem, 11vw, 9.5rem); height: auto; }
   .desktop-nav { display: flex; align-items: center; gap: 2.3rem; }
   .nav-link { position: relative; color: var(--fg-muted); font-size: .68rem; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; transition: color .25s ease; }
   .nav-link::after { content: ""; position: absolute; right: 0; bottom: -.55rem; left: 0; height: 1px; background: var(--copper); transform: scaleX(0); transform-origin: left; transition: transform .3s ease; }

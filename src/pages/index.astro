@@ -96,18 +96,23 @@ const gallery: { src: string; video?: string; alt: string; className: string }[]
   <section class="testimonials section section--ivory">
     <div class="container testimonial-head" data-reveal>
       <p class="eyebrow">Fjalët e klienteve</p>
-      <span>Dëshmi shembull · për zëvendësim</span>
+      <span>Nga klientet tona në Instagram</span>
     </div>
     <div class="container testimonial-grid">
       <blockquote data-reveal>
         <span>“</span>
-        <p>Rezultati duket kaq natyral sa askush nuk e kupton që kam zgjatime. Nga konsultimi te kujdesi pas shërbimit, gjithçka ishte e menduar me detaj.</p>
-        <footer>— Elira K. <small>Dëshmi shembull</small></footer>
+        <p>Në gjithë këto vite që vendos flokët te Onyx, nuk m’u dëmtua asnjë fije floku. Janë gjithnjë e më të shëndetshëm dhe vazhdojnë të rriten.</p>
+        <footer>— Orinda H. <small>Zgjatime flokësh</small></footer>
       </blockquote>
       <blockquote data-reveal>
         <span>“</span>
-        <p>Më në fund gjeta nuancën që më ndriçon fytyrën dhe rritet bukur. Flokët e mi ndihen të butë, plot dritë dhe shumë më të shëndetshëm.</p>
-        <footer>— Anisa M. <small>Dëshmi shembull</small></footer>
+        <p>Erdha te ju dhe mbeta shumë e kënaqur me stafin dhe shërbimin tuaj.</p>
+        <footer>— Kliente e Onyx <small>Instagram</small></footer>
+      </blockquote>
+      <blockquote data-reveal>
+        <span>“</span>
+        <p>Jeni salloni me cilësinë më të mirë të flokëve dhe produkteve në Tiranë!</p>
+        <footer>— Kliente e Onyx <small>Instagram</small></footer>
       </blockquote>
     </div>
   </section>
@@ -166,11 +171,11 @@ const gallery: { src: string; video?: string; alt: string; className: string }[]
   .testimonial-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(10,10,9,.18); }
   .testimonial-head .eyebrow { margin: 0; }
   .testimonial-head > span { color: #857c73; font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; }
-  .testimonial-grid { display: grid; grid-template-columns: 1fr 1fr; }
-  blockquote { position: relative; margin: 0; padding: clamp(3rem,6vw,6rem); }
+  .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+  blockquote { position: relative; margin: 0; padding: clamp(2.5rem,4vw,4rem); }
   blockquote + blockquote { border-left: 1px solid rgba(10,10,9,.18); }
   blockquote > span { display: block; height: 3rem; color: var(--copper); font-family: var(--display); font-size: 5rem; line-height: 1; }
-  blockquote > p { margin: 1rem 0 2.5rem; font-family: var(--display); font-size: clamp(1.7rem,3vw,2.5rem); line-height: 1.2; }
+  blockquote > p { margin: 1rem 0 2.5rem; font-family: var(--display); font-size: clamp(1.5rem,2.2vw,2rem); line-height: 1.2; }
   blockquote footer { font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
   blockquote small { display: block; margin-top: .35rem; color: #8c8379; font-weight: 500; }
   .closing-cta { position: relative; min-height: 85vh; display: flex; align-items: center; overflow: hidden; }
@@ -180,6 +185,9 @@ const gallery: { src: string; video?: string; alt: string; className: string }[]
   .closing-cta .container { position: relative; z-index: 1; }
   .closing-cta p:not(.eyebrow) { max-width: 35rem; margin: 2rem 0; color: var(--fg-muted); }
   @media (max-width: 900px) {
+    .testimonial-grid { grid-template-columns: 1fr; }
+    blockquote { padding-inline: 0; }
+    blockquote + blockquote { border-top: 1px solid rgba(10,10,9,.18); border-left: 0; }
     .intro-grid { grid-template-columns: 1fr 1fr; }
     .intro-side { display: none; }
     .service-grid { grid-template-columns: 1fr 1fr; }

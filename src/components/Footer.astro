@@ -14,7 +14,7 @@ const year = new Date().getFullYear();
   </div>
   <div class="container footer-grid">
     <div class="footer-brand">
-      <strong>ONYX</strong><span>Hairline</span>
+      <img src={withBase('/media/img/logo-onyx-hairline.png')} alt="Onyx Hairline" width="600" height="190" loading="lazy" decoding="async" />
       <p>Ekspertizë në zgjatime, ngjyrosje dhe trajtime profesionale të flokëve.</p>
     </div>
     <div>
@@ -34,7 +34,7 @@ const year = new Date().getFullYear();
       <h3>Na ndiqni</h3>
       <a href="https://www.instagram.com/onyx_hairline/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
       <a href="https://www.tiktok.com/@onyx_hairline" target="_blank" rel="noopener noreferrer">TikTok ↗</a>
-      <a href="#" aria-label="Facebook — lidhja do të shtohet">Facebook ↗</a>
+      <a href="https://www.facebook.com/onyxhairline/" target="_blank" rel="noopener noreferrer">Facebook ↗</a>
     </div>
   </div>
   <div class="container footer-bottom">
@@ -52,8 +52,7 @@ const year = new Date().getFullYear();
   .footer-contact :global(svg) { width: 1.1rem; }
   .footer-grid { display: grid; grid-template-columns: 2fr repeat(3,1fr); gap: 3rem; padding: 4rem 0; border-top: 1px solid var(--line); }
   .footer-grid > div:not(.footer-brand) { display: flex; flex-direction: column; gap: .55rem; }
-  .footer-brand strong { display: block; font-family: var(--display); font-size: 2rem; font-weight: 400; letter-spacing: .17em; line-height: 1; }
-  .footer-brand span { color: var(--accent-ink); font-size: .58rem; letter-spacing: .4em; text-transform: uppercase; }
+  .footer-brand img { display: block; width: 12rem; max-width: 100%; height: auto; }
   .footer-brand p { max-width: 21rem; margin: 1.5rem 0 0; color: var(--fg-muted); font-size: .86rem; }
   .footer-grid h3 { margin: 0 0 .85rem; color: var(--accent-ink); font-size: .63rem; letter-spacing: .16em; text-transform: uppercase; }
   .footer-grid a { width: max-content; color: var(--fg-muted); font-size: .82rem; transition: color .2s ease; }

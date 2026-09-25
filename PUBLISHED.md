@@ -68,10 +68,10 @@ Hapat e plotë me cPanel dhe FTP janë te [README.md](README.md). Përmbledhje: 
 
 ## Ende të hapura para publikimit përfundimtar
 
-- Numri i telefonit dhe lidhja `wa.me/` janë ende vlerat vendmbajtëse `+355XXXXXXXXX`.
-- Adresa dhe orari përfundimtar nuk janë vendosur.
-- Dëshmitë në Ballinë janë shembuj, jo dëshmi reale të miratuara.
-- Lidhjet e Instagramit dhe Facebook-ut te fundfaqja nuk janë reale.
+- Numri +355 69 345 2141 (telefon dhe WhatsApp) është marrë nga bio e Instagram-it; pret konfirmim nga klienti.
+- Ditët e punës (e hënë – e shtunë) janë nga Instagram-i; orari 09:00 – 19:00 pret konfirmim.
+- Adresa është nxjerrë nga pika e Google Maps që dërgoi Klea; formulimi pret konfirmim.
+- Before/after te Ngjyrosje Flokësh duhet zëvendësuar me një çift me të njëjtën veshje dhe pozicion.
 - Formulari te `src/pages/kontakt.astro` nuk dërgon të dhëna derisa të vendoset `data-endpoint`.
 
 Fotografitë dhe videot janë tashmë materiale reale nga salloni (`public/media/`). `astro.config.mjs` vendos `site: 'https://onyxhairline.com'` jashtë GitHub Actions, kështu që URL-të absolute (p.sh. `og:image`) tani janë të sakta.
