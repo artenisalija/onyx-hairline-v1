@@ -69,7 +69,6 @@ Hapat e plotë me cPanel dhe FTP janë te [README.md](README.md). Përmbledhje: 
 ## Ende të hapura para publikimit përfundimtar
 
 - Numri +355 69 345 2141 (telefon dhe WhatsApp) është marrë nga bio e Instagram-it; pret konfirmim nga klienti.
-- Ditët e punës (e hënë – e shtunë) janë nga Instagram-i; orari 09:00 – 19:00 pret konfirmim.
 - Adresa është nxjerrë nga pika e Google Maps që dërgoi Klea; formulimi pret konfirmim.
 - Before/after te Ngjyrosje Flokësh duhet zëvendësuar me një çift me të njëjtën veshje dhe pozicion.
 - Formulari te `src/pages/kontakt.astro` nuk dërgon të dhëna derisa të vendoset `data-endpoint`.
